@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dialog Title"
+        android:textAppearance="?android:textAppearanceLarge" />
+
+    <ScrollView
+        android:id="@+id/dialog_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_message_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dialog Message"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <!-- Add more views here if necessary -->
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

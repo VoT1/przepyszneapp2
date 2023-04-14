@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/etNazwa"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_marginEnd="184dp"
+        android:layout_marginBottom="23dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etProdukt1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etProdukt1"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNazwa" />
+
+    <EditText
+        android:id="@+id/etProdukt3"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProdukt2" />
+
+    <EditText
+        android:id="@+id/etProdukt2"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProdukt1" />
+
+    <Button
+        android:id="@+id/buttonZapisz"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="61dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProdukt3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
