@@ -1,6 +1,7 @@
 package com.example.przepyszneapp2;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class PanelAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paneladmin);
         Button button = findViewById(R.id.buttonwyloguj);
+
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +104,6 @@ public class PanelAdmin extends AppCompatActivity {
                     intent.putExtra("produkt3", wierszprodukt3);
                     startActivity(intent);
 
-                    db.close();
                 }
             }
         });
@@ -147,6 +151,30 @@ public class PanelAdmin extends AppCompatActivity {
                 myDialog3.show();
             }
         });
+    }
+    public void onBackPressed() {
+        if (isBackPressed) {
+            super.onBackPressed();
+        } else {
+            isBackPressed = true;
+            new AlertDialog.Builder(this)
+                    .setMessage("Czy na pewno chcesz zamknąć aplikację?")
+                    .setCancelable(false)
+                    .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Zakończ wszystkie aktywności w aplikacji
+                            finishAffinity();
+                        }
+                    })
+                    .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            isBackPressed = false;
+                        }
+                    })
+                    .show();
+        }
     }
 
 }

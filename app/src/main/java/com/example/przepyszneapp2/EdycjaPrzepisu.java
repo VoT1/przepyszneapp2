@@ -63,14 +63,25 @@ public class EdycjaPrzepisu extends AppCompatActivity {
                 String produkt2 = String.valueOf(etProdukt2.getText());
                 String produkt3 = String.valueOf(etProdukt3.getText());
 
+                dbHelper = new DatabaseHelper(EdycjaPrzepisu.this);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {nazwa, produkt1, produkt2, produkt3, wierszid});
+
+
 
 
                 if (nazwa.isEmpty() || produkt1.isEmpty() || produkt2.isEmpty() || produkt3.isEmpty()) {
                     // poinformuj użytkownika o błędzie
                     Toast.makeText(EdycjaPrzepisu.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    // poinformuj użytkownika o sukcesie
+                    Toast.makeText(EdycjaPrzepisu.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
+                    // przejdź do panelu administratora
+                    Intent intent = new Intent(EdycjaPrzepisu.this, PanelAdmin.class);
+                    startActivity(intent);
                 }
             }
-        });
+            });
     }
 }
