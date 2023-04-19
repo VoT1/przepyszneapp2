@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="StylDialoguProdukty" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="shapeAppearanceOverlay">@style/RoundedCornerDialog</item>
+    </style>
+
+    <style name="RoundedCornerDialog">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+</resources>

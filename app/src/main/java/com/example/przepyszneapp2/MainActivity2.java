@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,12 +20,67 @@ public class MainActivity2 extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private ListView listview;
+    private Button buttonwyszukaj;
     private boolean isBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        buttonwyszukaj = findViewById(R.id.buttonwyszukaj);
+
+
+        buttonwyszukaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new DatabaseHelper(MainActivity2.this);
+                SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+                Cursor cursorprodukty = db.rawQuery("SELECT * FROM Produkty", null);
+
+                ArrayList<String> itemsprodukty = new ArrayList<>();
+                while (cursorprodukty.moveToNext()) {
+                    String nazwa = cursorprodukty.getString(cursorprodukty.getColumnIndexOrThrow("nazwa"));
+                    String waga = cursorprodukty.getString(cursorprodukty.getColumnIndexOrThrow("waga"));
+                    String item = nazwa + ", " + waga;
+                    itemsprodukty.add(item);
+                }
+
+                cursorprodukty.close();
+                db.close();
+
+                final String[] produktyArray = itemsprodukty.toArray(new String[0]);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this, R.style.StylDialoguProdukty);
+                builder.setTitle("Wybierz produkty:");
+
+                boolean[] checkedItems = new boolean[produktyArray.length];
+
+                builder.setMultiChoiceItems(produktyArray, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        // TODO: obsługa zaznaczania elementów w menu
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO: obsługa zatwierdzania wyboru
+                    }
+                });
+
+                builder.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO: obsługa anulowania wyboru
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         dbHelper = new DatabaseHelper(MainActivity2.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
