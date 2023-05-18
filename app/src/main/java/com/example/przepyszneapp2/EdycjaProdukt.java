@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EdycjaPrzepisu extends AppCompatActivity {
+public class EdycjaProdukt extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private EditText etNazwa;
@@ -57,7 +57,7 @@ public class EdycjaPrzepisu extends AppCompatActivity {
                 String produkt2 = String.valueOf(etProdukt2.getText());
                 String produkt3 = String.valueOf(etProdukt3.getText());
 
-                dbHelper = new DatabaseHelper(EdycjaPrzepisu.this);
+                dbHelper = new DatabaseHelper(EdycjaProdukt.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {nazwa, produkt1, produkt2, produkt3, wierszid});
 
@@ -66,13 +66,13 @@ public class EdycjaPrzepisu extends AppCompatActivity {
 
                 if (nazwa.isEmpty() || produkt1.isEmpty() || produkt2.isEmpty() || produkt3.isEmpty()) {
                     // poinformuj użytkownika o błędzie
-                    Toast.makeText(EdycjaPrzepisu.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EdycjaProdukt.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     // poinformuj użytkownika o sukcesie
-                    Toast.makeText(EdycjaPrzepisu.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EdycjaProdukt.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
                     // przejdź do panelu administratora
-                    Intent intent = new Intent(EdycjaPrzepisu.this, PanelAdmin.class);
+                    Intent intent = new Intent(EdycjaProdukt.this, PanelAdmin.class);
                     startActivity(intent);
                 }
             }

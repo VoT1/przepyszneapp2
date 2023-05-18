@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,10 +9,11 @@
         android:layout_width="160dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
+        android:textSize="15sp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="48dp"
-        android:text="Pokaż liste Użytkowników"
+        android:text="Użytkownicy"
         android:background="@drawable/roundedprzyciskstyle"
         app:layout_constraintBottom_toTopOf="@+id/buttonlistaproduktow"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +25,11 @@
         android:layout_width="160dp"
         android:layout_height="100dp"
         android:layout_marginStart="59dp"
-        android:layout_marginLeft="59dp"
         android:layout_marginTop="25dp"
+        android:textSize="15sp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="48dp"
-        android:text="POKAŻ LISTĘ PRZEPISÓW"
         android:background="@drawable/roundedprzyciskstyle"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        android:text="Przepisy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonlistauser"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,34 +41,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="42dp"
+        android:textSize="15sp"
         android:background="@drawable/roundedprzyciskstyle"
-        android:text="POKAŻ LISTĘ PRODUKTÓW"
+        android:text="Produkty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonlistauser" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="42dp"
-        android:background="@drawable/roundedprzyciskstyle"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonlistaproduktow" />
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Button"
-        android:background="@drawable/roundedprzyciskstyle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
 
     <Button
         android:id="@+id/buttonwyloguj"
@@ -84,23 +58,10 @@
         android:layout_marginBottom="89dp"
         android:text="Wyloguj"
         android:background="@drawable/roundedprzyciskstyle"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginLeft="59dp"
-        android:background="@drawable/roundedprzyciskstyle"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonlistaproduktow"
-        app:layout_constraintTop_toBottomOf="@+id/buttonlistaprzepisow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,15 +6,18 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/buttondodajprzepis"
+        android:id="@+id/buttondodajprodukt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dodaj przepis" />
+        android:textSize="16sp"
+        android:text="Dodaj produkt" />
+
 
     <ListView
-            android:id="@+id/listview_przepisy"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/listview_produkt"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:layout_height="match_parent"/>
 
 
 

@@ -6,57 +6,50 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/etNazwa"
+        android:id="@+id/etNazwaDodajProdukt"
         android:layout_width="wrap_content"
         android:layout_height="150px"
-        android:layout_marginEnd="184dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="23dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/etProdukt1"
+        app:layout_constraintBottom_toTopOf="@+id/etwagaProdukt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etProdukt1"
+        android:id="@+id/etwagaProdukt"
         android:layout_width="wrap_content"
         android:layout_height="150px"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="184dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNazwa" />
+        app:layout_constraintTop_toBottomOf="@+id/etNazwaDodajProdukt" />
 
     <EditText
-        android:id="@+id/etProdukt3"
+        android:id="@+id/etkcalDodajProdukt"
         android:layout_width="wrap_content"
         android:layout_height="150px"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProdukt2" />
+        app:layout_constraintTop_toBottomOf="@+id/etwagaProdukt" />
 
-    <EditText
-        android:id="@+id/etProdukt2"
-        android:layout_width="wrap_content"
-        android:layout_height="150px"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProdukt1" />
 
     <Button
-        android:id="@+id/buttonZapisz"
+        android:id="@+id/buttonZapiszDodajProdukt"
         android:layout_width="wrap_content"
         android:layout_height="150px"
         android:layout_marginStart="115dp"
         android:layout_marginTop="61dp"
-        android:text="Zapisz Przepis"
+        android:text="DODAJ PRODUKT"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProdukt3" />
+        app:layout_constraintTop_toBottomOf="@+id/etkcalDodajProdukt" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

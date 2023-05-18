@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (db != null) {
                     Cursor cursor = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=?", new String[]{text1String, text2String});
-                    Cursor cursor2 = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=? AND admin=?", new String[]{text1String, text2String, "1"});
+                    Cursor cursor2 = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=? AND admin=?", new String[]{text1String, text2String, "true"});
                     if(cursor2.moveToFirst()) {
                         Intent intent2 = new Intent(MainActivity.this, PanelAdmin.class);
                         progressBar.setVisibility(View.VISIBLE);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Poprawnie zalogowano", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.INVISIBLE);
                                 }
-                            }, 1500);
+                            }, 1000);
 
 
                         } else {

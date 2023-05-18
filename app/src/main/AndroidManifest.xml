@@ -30,6 +30,10 @@
         <activity android:name=".MainActivity2"></activity>
         <activity android:name="PanelAdmin"></activity>
         <activity android:name=".EdycjaPrzepisu"></activity>
+        <activity android:name=".DodajPrzepis"></activity>
+        <activity android:name=".EdycjaUser"></activity>
+        <activity android:name=".DodajUser"></activity>
+        <activity android:name=".DodajProdukt"></activity>
     </application>
 
 
