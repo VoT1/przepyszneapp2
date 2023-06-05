@@ -34,6 +34,7 @@
         <activity android:name=".EdycjaUser"></activity>
         <activity android:name=".DodajUser"></activity>
         <activity android:name=".DodajProdukt"></activity>
+        <activity android:name=".EdycjaProdukt"></activity>
     </application>
 
 

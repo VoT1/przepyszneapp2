@@ -7,7 +7,7 @@
 
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listviewfiltr"
         android:layout_width="409dp"
         android:layout_height="629dp"
         android:layout_marginStart="1dp"
@@ -17,9 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonwyszukaj"
@@ -34,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listviewfiltr"
+        android:id="@+id/listview"
         android:layout_width="409dp"
         android:layout_height="629dp"
         android:layout_marginStart="1dp"
@@ -44,5 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

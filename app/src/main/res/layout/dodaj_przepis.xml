@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/etNazwaDodajUser"
+        android:id="@+id/etNazwaDodajPrzepis"
         android:layout_width="wrap_content"
         android:layout_height="150px"
         android:layout_marginTop="10dp"
@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewSelectedImage"
+        android:layout_width="260dp"
+        android:layout_height="203dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProdukt3Dodaj" />
+
     <EditText
         android:id="@+id/etProdukt1Dodaj"
         android:layout_width="wrap_content"
@@ -27,7 +38,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNazwaDodajUser" />
+        app:layout_constraintTop_toBottomOf="@+id/etNazwaDodajPrzepis" />
 
     <EditText
         android:id="@+id/etProdukt3Dodaj"
@@ -52,14 +63,14 @@
         app:layout_constraintTop_toBottomOf="@+id/etProdukt1Dodaj" />
 
     <Button
-        android:id="@+id/buttonZapiszDodajUser"
+        android:id="@+id/buttonZapiszDodajPrzepis"
         android:layout_width="wrap_content"
         android:layout_height="150px"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="60dp"
         android:text="DODAJ PRZEPIS"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProdukt3Dodaj" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSelectedImage" />
 
     <TextView
         android:id="@+id/textView6"

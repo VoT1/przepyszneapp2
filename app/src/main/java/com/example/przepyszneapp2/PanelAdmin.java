@@ -147,6 +147,29 @@ public class PanelAdmin extends AppCompatActivity {
                 return true;
             }
         });
+        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String wiersziduser = String.valueOf(id+1);
+                Cursor cursordouser = db.rawQuery("SELECT * FROM Uzytkownicy WHERE id=?", new String[]{wiersziduser});
+
+                if (cursordouser.moveToFirst()) {
+                    String wierszid = cursordouser.getString(0);
+                    String wiersznazwa = cursordouser.getString(1);
+                    String wierszhaslo = cursordouser.getString(2);
+                    String wierszadmin = cursordouser.getString(3);
+
+
+                    Intent intent = new Intent(PanelAdmin.this, EdycjaUser.class);
+                    intent.putExtra("id", wierszid);
+                    intent.putExtra("nazwa", wiersznazwa);
+                    intent.putExtra("haslo", wierszhaslo);
+                    intent.putExtra("admin", wierszadmin);
+                    startActivity(intent);
+
+                }
+            }
+        });
         listView3.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -187,30 +210,6 @@ public class PanelAdmin extends AppCompatActivity {
                 return true;
             }
         });
-
-        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String wiersziduser = String.valueOf(id+1);
-                Cursor cursordouser = db.rawQuery("SELECT * FROM Uzytkownicy WHERE id=?", new String[]{wiersziduser});
-
-                if (cursordouser.moveToFirst()) {
-                    String wierszid = cursordouser.getString(0);
-                    String wiersznazwa = cursordouser.getString(1);
-                    String wierszhaslo = cursordouser.getString(2);
-                    String wierszadmin = cursordouser.getString(3);
-
-
-                    Intent intent = new Intent(PanelAdmin.this, EdycjaUser.class);
-                    intent.putExtra("id", wierszid);
-                    intent.putExtra("nazwa", wiersznazwa);
-                    intent.putExtra("haslo", wierszhaslo);
-                    intent.putExtra("admin", wierszadmin);
-                    startActivity(intent);
-
-                }
-            }
-        });
         listView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -224,12 +223,13 @@ public class PanelAdmin extends AppCompatActivity {
                     String wierszkcal = cursordoprodukt.getString(3);
 
 
-                    Intent intent = new Intent(PanelAdmin.this, EdycjaProdukt.class);
-                    intent.putExtra("id", wierszid);
-                    intent.putExtra("nazwa", wiersznazwa);
-                    intent.putExtra("waga", wierszwaga);
-                    intent.putExtra("kcal", wierszkcal);
-                    startActivity(intent);
+                    Intent intent3 = new Intent(PanelAdmin.this, EdycjaProdukt.class);
+                    intent3.putExtra("id", wierszid);
+                    intent3.putExtra("nazwa", wiersznazwa);
+                    intent3.putExtra("waga", wierszwaga);
+                    intent3.putExtra("kcal", wierszkcal);
+
+                    startActivity(intent3);
 
                 }
             }

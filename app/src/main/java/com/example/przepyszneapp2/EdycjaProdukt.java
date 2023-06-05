@@ -13,58 +13,55 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EdycjaProdukt extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
-    private EditText etNazwa;
-    private EditText etProdukt1;
-    private EditText etProdukt2;
-    private EditText etProdukt3;
-    private Button buttonZapisz;
+    private EditText etNazwaProdukt;
+    private EditText etkcalProdukt;
+
+    private EditText etwagaProdukt;
+    private Button buttonZapiszProdukt;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edycja_przepisu);
+        setContentView(R.layout.edycja_produkt);
 
 
         dbHelper = new DatabaseHelper(this);
-        etNazwa = findViewById(R.id.etNazwa);
-        etProdukt1 = findViewById(R.id.etProdukt1);
-        etProdukt2 = findViewById(R.id.etProdukt2);
-        etProdukt3 = findViewById(R.id.etProdukt3);
-        buttonZapisz = findViewById(R.id.buttonZapisz);
+        etNazwaProdukt = findViewById(R.id.etNazwaProdukt);
+        etkcalProdukt = findViewById(R.id.etkcalProdukt);
+        etwagaProdukt = findViewById(R.id.etwagaProdukt);
+        buttonZapiszProdukt = findViewById(R.id.buttonZapiszProdukt);
 
 
         Intent intent = getIntent();
 
         String wierszid = intent.getStringExtra("id");
-        String nazwa = intent.getStringExtra("nazwa");
-        String produkt1 = intent.getStringExtra("produkt1");
-        String produkt2 = intent.getStringExtra("produkt2");
-        String produkt3 = intent.getStringExtra("produkt3");
+        String wiersznazwa = intent.getStringExtra("nazwa");
+        String wierszwaga = intent.getStringExtra("waga");
+        String wierszkcal = intent.getStringExtra("kcal");
 
-        etNazwa.setText(nazwa);
-        etProdukt1.setText(produkt1);
-        etProdukt2.setText(produkt2);
-        etProdukt3.setText(produkt3);
+        etNazwaProdukt.setText(wiersznazwa);
+        etwagaProdukt.setText(wierszwaga);
+        etkcalProdukt.setText(wierszkcal);
 
 
         // zapisanie zmian po kliknięciu przycisku
-        buttonZapisz.setOnClickListener(new View.OnClickListener() {
+        buttonZapiszProdukt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nazwa = String.valueOf(etNazwa.getText());
-                String produkt1 = String.valueOf(etProdukt1.getText());
-                String produkt2 = String.valueOf(etProdukt2.getText());
-                String produkt3 = String.valueOf(etProdukt3.getText());
+                String wiersznazwa = String.valueOf(etNazwaProdukt.getText());
+                String wierszwaga = String.valueOf(etwagaProdukt.getText());
+                String wierszkcal = String.valueOf(etkcalProdukt.getText());
+
 
                 dbHelper = new DatabaseHelper(EdycjaProdukt.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {nazwa, produkt1, produkt2, produkt3, wierszid});
+                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {wiersznazwa, wierszwaga, wierszkcal, wierszid});
 
 
 
 
-                if (nazwa.isEmpty() || produkt1.isEmpty() || produkt2.isEmpty() || produkt3.isEmpty()) {
+                if (wiersznazwa.isEmpty() || wierszwaga.isEmpty() || wierszkcal.isEmpty() ) {
                     // poinformuj użytkownika o błędzie
                     Toast.makeText(EdycjaProdukt.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
                     return;
