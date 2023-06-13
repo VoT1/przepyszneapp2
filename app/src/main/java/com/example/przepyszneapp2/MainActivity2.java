@@ -10,11 +10,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,21 +34,27 @@ public class MainActivity2 extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private Button buttonwyszukaj;
     private Button buttonrefresh;
+    private View rootView;
 
     private ImageView recipeImage;
     private boolean isBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         buttonwyszukaj = findViewById(R.id.buttonwyszukaj);
         buttonrefresh = findViewById(R.id.buttonrefresh);
         ListView listViewfiltr = findViewById(R.id.listviewfiltr);
         ListView listView = findViewById(R.id.listview);
+        rootView = findViewById(android.R.id.content);
 
         dbHelper = new DatabaseHelper(MainActivity2.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Animation pulseAnimation = AnimationUtils.loadAnimation(MainActivity2.this, R.anim.pulse_animation);
+        buttonwyszukaj.startAnimation(pulseAnimation);
+        BlurBuilder blurBuilder = new BlurBuilder();
 
         Dialog myDialogKarta = new Dialog(MainActivity2.this);
         myDialogKarta.setContentView(R.layout.dialog_karta_produkt);
@@ -99,8 +107,8 @@ public class MainActivity2 extends AppCompatActivity {
                     isButtonClicked = true;
                     buttonwyszukaj.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     buttonwyszukaj.setText("Aktywne wyszukiwanie");
-                }
-                else {
+
+                } else {
                     Intent intent = new Intent(MainActivity2.this, MainActivity2.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -120,6 +128,7 @@ public class MainActivity2 extends AppCompatActivity {
                 final String[] produktyArray = itemsprodukty.toArray(new String[0]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this, R.style.StylDialoguProdukty);
+                builder.setCancelable(false);
                 builder.setTitle("Wybierz produkty:");
 
                 boolean[] checkedItems = new boolean[produktyArray.length];
@@ -240,7 +249,8 @@ public class MainActivity2 extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
-            });
+        });
+
 
         listViewfiltr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -344,5 +354,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public void applyBlurEffect() {
+        BitmapDrawable drawable = (BitmapDrawable) rootView.getBackground();
+        Bitmap blurredBitmap = BlurBuilder.blur(MainActivity2.this, drawable.getBitmap());
+        rootView.setBackground(new BitmapDrawable(getResources(), blurredBitmap));
     }
 }

@@ -1,9 +1,6 @@
 package com.example.przepyszneapp2;
-import android.Manifest;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,12 +9,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button button = findViewById(R.id.buttonlogowanie);
+        Animation pulseAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.pulse_animation);
+        button.startAnimation(pulseAnimation);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
