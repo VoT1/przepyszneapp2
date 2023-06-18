@@ -6,13 +6,12 @@
 
 
     <ListView
-        android:id="@+id/listviewfiltr"
+        android:id="@+id/listViewprzed"
         android:layout_width="409dp"
-        android:layout_height="580dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="150dp"
+        android:layout_height="410dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,19 +30,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listviewfiltr"
         android:layout_width="409dp"
-        android:layout_height="580dp"
+        android:layout_height="400dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </ListView>
+    <Button
+        android:id="@+id/buttonwylogujuser"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/roundedprzyciskstyle"
+        android:text="Wyloguj"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonrefresh"

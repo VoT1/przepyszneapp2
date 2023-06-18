@@ -45,7 +45,6 @@ public class EdycjaProdukt extends AppCompatActivity {
         etkcalProdukt.setText(wierszkcal);
 
 
-        // zapisanie zmian po kliknięciu przycisku
         buttonZapiszProdukt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,19 +55,16 @@ public class EdycjaProdukt extends AppCompatActivity {
 
                 dbHelper = new DatabaseHelper(EdycjaProdukt.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {wiersznazwa, wierszwaga, wierszkcal, wierszid});
+                db.execSQL("UPDATE Produkty SET nazwa = ?, waga = ?, kcal = ? WHERE id = ?", new String[] {wiersznazwa, wierszwaga, wierszkcal, wierszid});
 
 
 
 
                 if (wiersznazwa.isEmpty() || wierszwaga.isEmpty() || wierszkcal.isEmpty() ) {
-                    // poinformuj użytkownika o błędzie
                     Toast.makeText(EdycjaProdukt.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    // poinformuj użytkownika o sukcesie
                     Toast.makeText(EdycjaProdukt.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
-                    // przejdź do panelu administratora
                     Intent intent = new Intent(EdycjaProdukt.this, PanelAdmin.class);
                     startActivity(intent);
                 }

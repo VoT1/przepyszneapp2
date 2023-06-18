@@ -4,51 +4,132 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etNazwaDodajProdukt"
+    <TextView
+        android:id="@+id/tvNazwaDodajProduktLabel"
         android:layout_width="wrap_content"
-        android:layout_height="150px"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="23dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/etwagaProdukt"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:text="Nazwa produktu:"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etwagaProdukt"
+        android:id="@+id/etNazwaDodajProdukt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:textSize="18sp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvNazwaDodajProduktLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvNazwaDodajProduktLabel"
+        app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+        android:id="@+id/tvWagaProduktLabel"
         android:layout_width="wrap_content"
-        android:layout_height="150px"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:text="Waga:"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNazwaDodajProdukt"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/etwagaProdukt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toEndOf="@+id/tvWagaProduktLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvWagaProduktLabel"
+        app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+        android:id="@+id/tvKcalDodajProduktLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kcal:"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNazwaDodajProdukt" />
+        app:layout_constraintTop_toBottomOf="@+id/etwagaProdukt"
+        android:layout_marginTop="16dp"/>
 
     <EditText
         android:id="@+id/etkcalDodajProdukt"
-        android:layout_width="wrap_content"
-        android:layout_height="150px"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etwagaProdukt" />
-
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toEndOf="@+id/tvKcalDodajProduktLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvKcalDodajProduktLabel"
+        app:layout_constraintWidth_default="wrap" />
 
     <Button
         android:id="@+id/buttonZapiszDodajProdukt"
-        android:layout_width="wrap_content"
-        android:layout_height="150px"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="61dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="DODAJ PRODUKT"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etkcalDodajProdukt" />
+        app:layout_constraintTop_toBottomOf="@+id/etkcalDodajProdukt"
+        android:imeOptions="actionDone"/>
 
+    <!-- Constrainty między polami tekstowymi -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etNazwaDodajProdukt"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etNazwaDodajProdukt"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etwagaProdukt"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etwagaProdukt"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etkcalDodajProdukt"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etkcalDodajProdukt"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

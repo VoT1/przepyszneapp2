@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView text1 = findViewById(R.id.editTextTextPersonName);
+        TextView text2 = findViewById(R.id.editTextTextPassword);
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -50,14 +53,19 @@ public class MainActivity extends AppCompatActivity {
                     MY_PERMISSIONS_REQUEST_STORAGE);
         }
 
-
-
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.INVISIBLE);
 
-
-
+        text1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String text = text1.getText().toString();
+                    String lowercaseText = text.toLowerCase();
+                    text1.setText(lowercaseText);
+                }
+            }
+        });
 
         Button button = findViewById(R.id.buttonlogowanie);
         Animation pulseAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.pulse_animation);
@@ -65,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView text1 = findViewById(R.id.editTextTextPersonName);
-                TextView text2 = findViewById(R.id.editTextTextPassword);
                 String text1String = text1.getText().toString().trim();
                 String text2String = text2.getText().toString().trim();
 
@@ -84,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                 if (db != null) {
-                    Cursor cursor = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=?", new String[]{text1String, text2String});
-                    Cursor cursor2 = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=? AND admin=?", new String[]{text1String, text2String, "true"});
-                    if(cursor2.moveToFirst()) {
+                    Cursor cursor = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=?", new String[]{text1String, hashPassword(text2String)});
+                    Cursor cursor2 = db.rawQuery("SELECT * FROM Uzytkownicy WHERE nazwa=? AND haslo=? AND admin=?", new String[]{text1String, hashPassword(text2String), "true"});
+                    if (cursor2.moveToFirst()) {
                         Intent intent2 = new Intent(MainActivity.this, PanelAdmin.class);
                         progressBar.setVisibility(View.VISIBLE);
                         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
@@ -102,20 +108,14 @@ public class MainActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.INVISIBLE);
                             }
                         }, 1500);
-                    }
-                    else {
-
+                    } else {
                         if (cursor.moveToFirst()) {
-
-                            // jeśli tak, to dane logowania są poprawne, można przejść do kolejnego ekranu
                             Intent intent = new Intent(MainActivity.this, MainActivity2.class);
                             progressBar.setVisibility(View.VISIBLE);
                             ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
                             progressAnimator.setDuration(2000);
                             progressAnimator.setInterpolator(new DecelerateInterpolator());
                             progressAnimator.start();
-
-
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -125,19 +125,30 @@ public class MainActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.INVISIBLE);
                                 }
                             }, 1000);
-
-
                         } else {
-                            // jeśli nie, to dane logowania są niepoprawne, wyświetlamy odpowiedni komunikat
                             Toast.makeText(MainActivity.this, "Niepoprawna nazwa użytkownika lub hasło", Toast.LENGTH_SHORT).show();
                         }
                         db.close();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Nie mozna polączyć z bazą danych", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Nie można połączyć z bazą danych", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(password.getBytes());
+            StringBuilder builder = new StringBuilder();
+            for (byte b : hashBytes) {
+                builder.append(String.format("%02x", b));
+            }
+            return builder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

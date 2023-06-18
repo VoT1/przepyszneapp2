@@ -302,6 +302,7 @@ public class PanelAdmin extends AppCompatActivity {
                     String wierszprodukt1 = cursordoprzepisow.getString(2);
                     String wierszprodukt2 = cursordoprzepisow.getString(3);
                     String wierszprodukt3 = cursordoprzepisow.getString(4);
+                    String wierszopis = cursordoprzepisow.getString(5);
 
 
                     Intent intent = new Intent(PanelAdmin.this, EdycjaPrzepisu.class);
@@ -310,6 +311,7 @@ public class PanelAdmin extends AppCompatActivity {
                     intent.putExtra("produkt1", wierszprodukt1);
                     intent.putExtra("produkt2", wierszprodukt2);
                     intent.putExtra("produkt3", wierszprodukt3);
+                    intent.putExtra("opis", wierszopis);
                     startActivity(intent);
 
                 }

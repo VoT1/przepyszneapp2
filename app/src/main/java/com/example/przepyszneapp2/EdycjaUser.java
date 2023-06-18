@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class EdycjaUser extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
@@ -63,12 +66,39 @@ public class EdycjaUser extends AppCompatActivity {
 
                 dbHelper = new DatabaseHelper(EdycjaUser.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("UPDATE Uzytkownicy SET nazwa = ?, haslo = ?, admin = ? WHERE id = ?", new String[]{nazwa, haslo, admin, wierszid});
+
+                // Zahasłowanie nowego hasła
+                String hashedPassword = hashPassword(haslo);
+
+                db.execSQL("UPDATE Uzytkownicy SET nazwa = ?, haslo = ?, admin = ? WHERE id = ?", new String[]{nazwa, hashedPassword, admin, wierszid});
 
                 Toast.makeText(EdycjaUser.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EdycjaUser.this, PanelAdmin.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private String hashPassword(String password) {
+        try {
+            // Utwórz instancję MessageDigest z algorytmem SHA-256
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+
+            // Przetwórz hasło jako tablicę bajtów
+            byte[] passwordBytes = password.getBytes();
+
+            // Oblicz skrót hasła
+            byte[] hashedBytes = messageDigest.digest(passwordBytes);
+
+            // Konwertuj tablicę bajtów na reprezentację tekstową
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte b : hashedBytes) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+            return stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

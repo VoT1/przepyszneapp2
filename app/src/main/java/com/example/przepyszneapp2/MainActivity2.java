@@ -35,6 +35,8 @@ public class MainActivity2 extends AppCompatActivity {
     private Button buttonwyszukaj;
     private Button buttonrefresh;
 
+    private Button buttonwylogujuser;
+
     private ImageView grafikaprzepisu;
     private boolean isBackPressed = false;
 
@@ -45,8 +47,10 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         buttonwyszukaj = findViewById(R.id.buttonwyszukaj);
         buttonrefresh = findViewById(R.id.buttonrefresh);
+         buttonwylogujuser = findViewById(R.id.buttonwylogujuser);
+        ListView listViewprzed = findViewById(R.id.listViewprzed);
         ListView listViewfiltr = findViewById(R.id.listviewfiltr);
-        ListView listView = findViewById(R.id.listview);
+        listViewfiltr.setVisibility(View.GONE);
 
         dbHelper = new DatabaseHelper(MainActivity2.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -58,6 +62,16 @@ public class MainActivity2 extends AppCompatActivity {
         myDialogKarta.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         myDialogKarta.setCancelable(true);
         grafikaprzepisu = myDialogKarta.findViewById(R.id.recipe_image);
+
+
+       buttonwylogujuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button buttonClose = myDialogKarta.findViewById(R.id.button_close);
         buttonClose.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +113,8 @@ public class MainActivity2 extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                listView.setVisibility(View.GONE);
+                listViewprzed.setVisibility(View.GONE);
+                listViewfiltr.setVisibility(View.VISIBLE);
                 if (!isButtonClicked) {
                     isButtonClicked = true;
                     buttonwyszukaj.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
@@ -186,7 +201,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 String produkt1 = cursor.getString(cursor.getColumnIndexOrThrow("produkt1"));
                                 String produkt2 = cursor.getString(cursor.getColumnIndexOrThrow("produkt2"));
                                 String produkt3 = cursor.getString(cursor.getColumnIndexOrThrow("produkt3"));
-                                String item = ": " + id + ", " + nazwa + ", " + produkt1 + ", " + produkt2 + ", " + produkt3;
+                                String item = " " + nazwa; //+ ", " + produkt1 + ", " + produkt2 + ", " + produkt3;
                                 items.add(item);
                             }
                             cursor.close();
@@ -253,8 +268,8 @@ public class MainActivity2 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 String[] itemParts = selectedItem.split(", ");
-                String productId = itemParts[0];
-                Toast.makeText(MainActivity2.this, "Product ID: " + productId, Toast.LENGTH_SHORT).show();
+                String przepisId = itemParts[0];
+                Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
 
 
                 // Wyświetlanie okienka dialogowego
@@ -262,13 +277,13 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewprzed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 String[] itemParts = selectedItem.split(", ");
                 String przepisId = itemParts[0];
-                Toast.makeText(MainActivity2.this, "Przepis ID: " + przepisId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
 
 
                 // Wyświetlanie okienka dialogowego
@@ -295,13 +310,13 @@ public class MainActivity2 extends AppCompatActivity {
             String produkt1 = cursor.getString(cursor.getColumnIndexOrThrow("produkt1"));
             String produkt2 = cursor.getString(cursor.getColumnIndexOrThrow("produkt2"));
             String produkt3 = cursor.getString(cursor.getColumnIndexOrThrow("produkt3"));
-            String item = ": " + id + ", " + nazwa + ", " + produkt1 + ", " + produkt2 + ", " + produkt3;
+            String item =" "+ nazwa; //", " + produkt1 + ", " + produkt2 + ", " + produkt3;
             items.add(item);
         }
         cursor.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity2.this, android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
+        listViewprzed.setAdapter(adapter);
 
     }
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,13 +19,13 @@ public class EdycjaPrzepisu extends AppCompatActivity {
     private EditText etProdukt2;
     private EditText etProdukt3;
     private Button buttonZapisz;
-
+    private EditText etOpis;
+    private ImageView imageViewSelectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edycja_przepisu);
-
 
         dbHelper = new DatabaseHelper(this);
         etNazwa = findViewById(R.id.etNazwa);
@@ -32,7 +33,8 @@ public class EdycjaPrzepisu extends AppCompatActivity {
         etProdukt2 = findViewById(R.id.etProdukt2);
         etProdukt3 = findViewById(R.id.etProdukt3);
         buttonZapisz = findViewById(R.id.buttonZapisz);
-
+        etOpis = findViewById(R.id.etOpis);
+        imageViewSelectedImage = findViewById(R.id.imageViewSelectedImage);
 
         Intent intent = getIntent();
 
@@ -41,41 +43,36 @@ public class EdycjaPrzepisu extends AppCompatActivity {
         String produkt1 = intent.getStringExtra("produkt1");
         String produkt2 = intent.getStringExtra("produkt2");
         String produkt3 = intent.getStringExtra("produkt3");
+        String opis = intent.getStringExtra("opis");
 
         etNazwa.setText(nazwa);
         etProdukt1.setText(produkt1);
         etProdukt2.setText(produkt2);
         etProdukt3.setText(produkt3);
+        etOpis.setText(opis);
 
-
-        // zapisanie zmian po kliknięciu przycisku
         buttonZapisz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nazwa = String.valueOf(etNazwa.getText());
-                String produkt1 = String.valueOf(etProdukt1.getText());
-                String produkt2 = String.valueOf(etProdukt2.getText());
-                String produkt3 = String.valueOf(etProdukt3.getText());
+                String nazwa = etNazwa.getText().toString();
+                String produkt1 = etProdukt1.getText().toString();
+                String produkt2 = etProdukt2.getText().toString();
+                String produkt3 = etProdukt3.getText().toString();
+                String opis = etOpis.getText().toString();
 
                 dbHelper = new DatabaseHelper(EdycjaPrzepisu.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ? WHERE id = ?", new String[] {nazwa, produkt1, produkt2, produkt3, wierszid});
+                db.execSQL("UPDATE Przepisy SET nazwa = ?, produkt1 = ?, produkt2 = ?, produkt3 = ?, opis = ? WHERE id = ?",
+                        new String[]{nazwa, produkt1, produkt2, produkt3, opis, wierszid});
 
-
-
-
-                if (nazwa.isEmpty() || produkt1.isEmpty() || produkt2.isEmpty() || produkt3.isEmpty()) {
-                    // poinformuj użytkownika o błędzie
+                if (nazwa.isEmpty() || produkt1.isEmpty() || produkt2.isEmpty() || produkt3.isEmpty() || opis.isEmpty()) {
                     Toast.makeText(EdycjaPrzepisu.this, "Wszystkie pola muszą być wypełnione.", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
-                    // poinformuj użytkownika o sukcesie
                     Toast.makeText(EdycjaPrzepisu.this, "Przepis został zaktualizowany.", Toast.LENGTH_SHORT).show();
-                    // przejdź do panelu administratora
                     Intent intent = new Intent(EdycjaPrzepisu.this, PanelAdmin.class);
                     startActivity(intent);
                 }
             }
-            });
+        });
     }
 }

@@ -35,6 +35,8 @@ public class DodajPrzepis extends AppCompatActivity {
     private EditText etProdukt1Dodaj;
     private EditText etProdukt2Dodaj;
     private EditText etProdukt3Dodaj;
+
+    private EditText etOpisDodajPrzepis;
     private Button buttonZapiszDodaj;
     private String selectedImagePath;
     private ImageView imageselect;
@@ -50,6 +52,7 @@ public class DodajPrzepis extends AppCompatActivity {
         etNazwaDodaj = findViewById(R.id.etNazwaDodajPrzepis);
         etProdukt1Dodaj = findViewById(R.id.etProdukt1Dodaj);
         etProdukt2Dodaj = findViewById(R.id.etProdukt2Dodaj);
+        etOpisDodajPrzepis = findViewById(R.id.etOpisDodajPrzepis);
         etProdukt3Dodaj = findViewById(R.id.etProdukt3Dodaj);
         buttonZapiszDodaj = findViewById(R.id.buttonZapiszDodajPrzepis);
         imageselect = findViewById(R.id.imageViewSelectedImage);
@@ -125,23 +128,22 @@ public class DodajPrzepis extends AppCompatActivity {
                 String produkt1Dodaj = etProdukt1Dodaj.getText().toString();
                 String produkt2Dodaj = etProdukt2Dodaj.getText().toString();
                 String produkt3Dodaj = etProdukt3Dodaj.getText().toString();
+                String opisDodaj = etOpisDodajPrzepis.getText().toString();
 
                 if (TextUtils.isEmpty(nazwaDodaj)) {
                     Toast.makeText(DodajPrzepis.this, "Wprowadź nazwę przepisu.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         dbHelper = new DatabaseHelper(DodajPrzepis.this);
                         SQLiteDatabase db = dbHelper.getWritableDatabase();
-                        db.execSQL("INSERT INTO Przepisy (nazwa, produkt1, produkt2, produkt3, grafika) VALUES (?, ?, ?, ?, ?)",
-                                new String[]{nazwaDodaj, produkt1Dodaj, produkt2Dodaj, produkt3Dodaj, selectedImagePath});
+                        db.execSQL("INSERT INTO Przepisy (nazwa, produkt1, produkt2, produkt3, opis, grafika) VALUES (?, ?, ?, ?, ?, ?)",
+                                new String[]{nazwaDodaj, produkt1Dodaj, produkt2Dodaj, produkt3Dodaj, opisDodaj, selectedImagePath});
                         db.close();
                         Intent intent = new Intent(DodajPrzepis.this, PanelAdmin.class);
                         startActivity(intent);
-
                     }
                 }).start();
 
