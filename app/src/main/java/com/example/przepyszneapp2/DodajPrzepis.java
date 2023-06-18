@@ -36,6 +36,7 @@ public class DodajPrzepis extends AppCompatActivity {
     private EditText etProdukt2Dodaj;
     private EditText etProdukt3Dodaj;
     private Button buttonZapiszDodaj;
+    private String selectedImagePath;
     private ImageView imageselect;
 
     int defaultImageResource = R.drawable.default_image;
@@ -135,8 +136,8 @@ public class DodajPrzepis extends AppCompatActivity {
                     public void run() {
                         dbHelper = new DatabaseHelper(DodajPrzepis.this);
                         SQLiteDatabase db = dbHelper.getWritableDatabase();
-                        db.execSQL("INSERT INTO Przepisy (nazwa, produkt1, produkt2, produkt3) VALUES (?, ?, ?, ?)",
-                                new String[]{nazwaDodaj, produkt1Dodaj, produkt2Dodaj, produkt3Dodaj});
+                        db.execSQL("INSERT INTO Przepisy (nazwa, produkt1, produkt2, produkt3, grafika) VALUES (?, ?, ?, ?, ?)",
+                                new String[]{nazwaDodaj, produkt1Dodaj, produkt2Dodaj, produkt3Dodaj, selectedImagePath});
                         db.close();
                         Intent intent = new Intent(DodajPrzepis.this, PanelAdmin.class);
                         startActivity(intent);
@@ -157,7 +158,6 @@ public class DodajPrzepis extends AppCompatActivity {
 
             if (assetList != null) {
                 for (String assetName : assetList) {
-                    // Pomijaj foldery
                     if (!assetName.contains(".")) {
                         continue;
                     }
@@ -173,6 +173,7 @@ public class DodajPrzepis extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedImageName = imageNames.get(which);
+                        selectedImagePath = selectedImageName;
                         try {
                             InputStream inputStream = getAssets().open(selectedImageName);
                             Bitmap selectedImageBitmap = BitmapFactory.decodeStream(inputStream);

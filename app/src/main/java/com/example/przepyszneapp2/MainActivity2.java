@@ -34,9 +34,8 @@ public class MainActivity2 extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private Button buttonwyszukaj;
     private Button buttonrefresh;
-    private View rootView;
 
-    private ImageView recipeImage;
+    private ImageView grafikaprzepisu;
     private boolean isBackPressed = false;
 
     @Override
@@ -48,19 +47,17 @@ public class MainActivity2 extends AppCompatActivity {
         buttonrefresh = findViewById(R.id.buttonrefresh);
         ListView listViewfiltr = findViewById(R.id.listviewfiltr);
         ListView listView = findViewById(R.id.listview);
-        rootView = findViewById(android.R.id.content);
 
         dbHelper = new DatabaseHelper(MainActivity2.this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Animation pulseAnimation = AnimationUtils.loadAnimation(MainActivity2.this, R.anim.pulse_animation);
         buttonwyszukaj.startAnimation(pulseAnimation);
-        BlurBuilder blurBuilder = new BlurBuilder();
 
         Dialog myDialogKarta = new Dialog(MainActivity2.this);
         myDialogKarta.setContentView(R.layout.dialog_karta_produkt);
         myDialogKarta.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         myDialogKarta.setCancelable(true);
-        recipeImage = myDialogKarta.findViewById(R.id.recipe_image);
+        grafikaprzepisu = myDialogKarta.findViewById(R.id.recipe_image);
 
         Button buttonClose = myDialogKarta.findViewById(R.id.button_close);
         buttonClose.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +162,6 @@ public class MainActivity2 extends AppCompatActivity {
                         if (!selectedItems.isEmpty()) {
                             StringBuilder selection = new StringBuilder();
                             if (selectedItems.size() > 1) {
-                                // Jeśli wybrano więcej niż jedną opcję, wyświetlaj przepisy, które zawierają wszystkie wybrane opcje
                                 for (int i = 0; i < selectedItems.size(); i++) {
                                     selection.append("produkt1 = '").append(selectedItems.get(i)).append("'")
                                             .append(" OR produkt2 = '").append(selectedItems.get(i)).append("'")
@@ -260,11 +256,6 @@ public class MainActivity2 extends AppCompatActivity {
                 String productId = itemParts[0];
                 Toast.makeText(MainActivity2.this, "Product ID: " + productId, Toast.LENGTH_SHORT).show();
 
-                byte[] imageBytes = getImageFromDatabase(productId);
-                if (imageBytes != null) {
-                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    recipeImage.setImageBitmap(imageBitmap);
-                }
 
                 // Wyświetlanie okienka dialogowego
                 myDialogKarta.show();
@@ -279,12 +270,6 @@ public class MainActivity2 extends AppCompatActivity {
                 String przepisId = itemParts[0];
                 Toast.makeText(MainActivity2.this, "Przepis ID: " + przepisId, Toast.LENGTH_SHORT).show();
 
-                // Pobierz obrazek z bazy danych
-                byte[] imageBytes = getImageFromDatabase(przepisId);
-                if (imageBytes != null) {
-                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    recipeImage.setImageBitmap(imageBitmap);
-                }
 
                 // Wyświetlanie okienka dialogowego
                 myDialogKarta.show();
@@ -319,18 +304,6 @@ public class MainActivity2 extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
-
-    private byte[] getImageFromDatabase(String przepisId) {
-        byte[] imageBytes = null;
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT grafika FROM Przepisy WHERE id = ?", new String[]{przepisId});
-        if (cursor.moveToFirst()) {
-            imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("grafika"));
-        }
-        cursor.close();
-        return imageBytes;
-    }
-
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
@@ -354,10 +327,5 @@ public class MainActivity2 extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-    public void applyBlurEffect() {
-        BitmapDrawable drawable = (BitmapDrawable) rootView.getBackground();
-        Bitmap blurredBitmap = BlurBuilder.blur(MainActivity2.this, drawable.getBitmap());
-        rootView.setBackground(new BitmapDrawable(getResources(), blurredBitmap));
     }
 }
