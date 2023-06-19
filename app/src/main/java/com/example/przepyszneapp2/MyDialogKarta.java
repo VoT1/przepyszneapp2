@@ -2,6 +2,7 @@ package com.example.przepyszneapp2;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -12,9 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.widget.NestedScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 public class MyDialogKarta {
 
@@ -41,6 +45,7 @@ public class MyDialogKarta {
         TextView opisTextView = dialogView.findViewById(R.id.opisTextView);
         AppCompatImageView grafikaImageView = dialogView.findViewById(R.id.recipe_image);
         Button buttonClose = dialogView.findViewById(R.id.button_close);
+        NestedScrollView scrollView = dialogView.findViewById(R.id.scroll_view);
 
         db = databaseHelper.getReadableDatabase();
         String selection = "id = ?";
@@ -63,10 +68,17 @@ public class MyDialogKarta {
             opisTextView.setText(opis);
 
             try {
-                // Load the image from assets folder based on the image file name
-                InputStream inputStream = context.getAssets().open(grafika);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                grafikaImageView.setImageBitmap(bitmap);
+                AssetManager assetManager = context.getAssets();
+                List<String> files = Arrays.asList(assetManager.list(""));
+                if (files.contains(grafika)) {
+                    InputStream inputStream = assetManager.open(grafika);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    grafikaImageView.setImageBitmap(bitmap);
+                } else {
+                    InputStream defaultInputStream = assetManager.open("brak.jpg");
+                    Bitmap defaultBitmap = BitmapFactory.decodeStream(defaultInputStream);
+                    grafikaImageView.setImageBitmap(defaultBitmap);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -85,5 +97,13 @@ public class MyDialogKarta {
                 dialog.dismiss();
             }
         });
+
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_UP);
+            }
+        });
     }
 }
+
