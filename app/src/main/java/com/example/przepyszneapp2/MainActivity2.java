@@ -37,7 +37,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     private Button buttonwylogujuser;
 
-    private ImageView grafikaprzepisu;
     private boolean isBackPressed = false;
 
     @Override
@@ -61,7 +60,6 @@ public class MainActivity2 extends AppCompatActivity {
         myDialogKarta.setContentView(R.layout.dialog_karta_produkt);
         myDialogKarta.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         myDialogKarta.setCancelable(true);
-        grafikaprzepisu = myDialogKarta.findViewById(R.id.recipe_image);
 
 
        buttonwylogujuser.setOnClickListener(new View.OnClickListener() {
@@ -70,14 +68,6 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity2.this, MainActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        Button buttonClose = myDialogKarta.findViewById(R.id.button_close);
-        buttonClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialogKarta.dismiss(); // Zamknij dialog po kliknięciu przycisku
             }
         });
 
@@ -178,19 +168,20 @@ public class MainActivity2 extends AppCompatActivity {
                             StringBuilder selection = new StringBuilder();
                             if (selectedItems.size() > 1) {
                                 for (int i = 0; i < selectedItems.size(); i++) {
-                                    selection.append("produkt1 = '").append(selectedItems.get(i)).append("'")
-                                            .append(" OR produkt2 = '").append(selectedItems.get(i)).append("'")
-                                            .append(" OR produkt3 = '").append(selectedItems.get(i)).append("'");
+                                    String selectedItem = selectedItems.get(i);
+                                    selection.append("(produkt1 LIKE '%").append(selectedItem).append("%' OR ");
+                                    selection.append("produkt2 LIKE '%").append(selectedItem).append("%' OR ");
+                                    selection.append("produkt3 LIKE '%").append(selectedItem).append("%')");
+
                                     if (i < selectedItems.size() - 1) {
                                         selection.append(" AND ");
                                     }
                                 }
                             } else {
-                                // Jeśli wybrano tylko jedną opcję, wyświetlaj przepisy, które zawierają tę opcję
                                 String selectedItem = selectedItems.get(0);
-                                selection.append("produkt1 = '").append(selectedItem).append("'")
-                                        .append(" OR produkt2 = '").append(selectedItem).append("'")
-                                        .append(" OR produkt3 = '").append(selectedItem).append("'");
+                                selection.append("(produkt1 LIKE '%").append(selectedItem).append("%' OR ");
+                                selection.append("produkt2 LIKE '%").append(selectedItem).append("%' OR ");
+                                selection.append("produkt3 LIKE '%").append(selectedItem).append("%')");
                             }
 
                             ArrayList<String> items = new ArrayList<>();
@@ -266,30 +257,33 @@ public class MainActivity2 extends AppCompatActivity {
         listViewfiltr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                String[] itemParts = selectedItem.split(", ");
-                String przepisId = itemParts[0];
-                Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
+                Cursor cursor = db.rawQuery("SELECT * FROM Przepisy", null);
+                if (cursor.moveToPosition(position)) {
+                    int przepisId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                    Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
 
-
-                // Wyświetlanie okienka dialogowego
-                myDialogKarta.show();
+                    MyDialogKarta dialog = new MyDialogKarta(MainActivity2.this, przepisId);
+                    dialog.show();
+                }
+                cursor.close();
             }
         });
 
         listViewprzed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                String[] itemParts = selectedItem.split(", ");
-                String przepisId = itemParts[0];
-                Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
+                Cursor cursor = db.rawQuery("SELECT * FROM Przepisy", null);
+                if (cursor.moveToPosition(position)) {
+                    int przepisId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                    Toast.makeText(MainActivity2.this, "Przepis: " + przepisId, Toast.LENGTH_SHORT).show();
 
-
-                // Wyświetlanie okienka dialogowego
-                myDialogKarta.show();
+                    MyDialogKarta dialog = new MyDialogKarta(MainActivity2.this, przepisId);
+                    dialog.show();
+                }
+                cursor.close();
             }
         });
+
 
         Cursor cursorprodukty = db.rawQuery("SELECT * FROM Produkty", null);
 
