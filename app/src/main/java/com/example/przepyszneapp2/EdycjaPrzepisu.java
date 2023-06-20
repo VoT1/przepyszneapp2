@@ -34,7 +34,7 @@ public class EdycjaPrzepisu extends AppCompatActivity {
         etProdukt3 = findViewById(R.id.etProdukt3);
         buttonZapisz = findViewById(R.id.buttonZapisz);
         etOpis = findViewById(R.id.etOpis);
-        imageViewSelectedImage = findViewById(R.id.imageViewSelectedImage);
+
 
         Intent intent = getIntent();
 

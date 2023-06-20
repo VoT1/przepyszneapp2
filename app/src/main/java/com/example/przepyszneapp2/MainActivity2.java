@@ -82,17 +82,16 @@ public class MainActivity2 extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // Zakończ odświeżanie i ukryj pasek postępu
                         progressDialog.dismiss();
                         Intent intent = new Intent(MainActivity2.this, MainActivity2.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Add this flag to close previous activities
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         Toast.makeText(MainActivity2.this, "Rozpoczęto odświeżanie danych", Toast.LENGTH_SHORT).show();
-                        finish(); // Finish the current activity
+                        finish();
                         Toast.makeText(MainActivity2.this, "Dane zostały odświeżone", Toast.LENGTH_SHORT).show();
 
                     }
-                }, 1500); // 3000 ms = 3 sekundy
+                }, 1500);
             }
 
         });
@@ -139,13 +138,11 @@ public class MainActivity2 extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
-                            // Ustawienie tła dla wybranego elementu
                             View view = ((AlertDialog) dialog).getListView().getChildAt(which);
                             if (view != null) {
                                 view.setBackgroundColor(Color.parseColor("#FFFFE0"));
                             }
                         } else {
-                            // Usunięcie tła dla odznaczonego elementu
                             View view = ((AlertDialog) dialog).getListView().getChildAt(which);
                             if (view != null) {
                                 view.setBackgroundResource(android.R.color.transparent);
@@ -207,17 +204,16 @@ public class MainActivity2 extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // Zakończ odświeżanie i ukryj pasek postępu
                                     progressDialog.dismiss();
                                     Intent intent = new Intent(MainActivity2.this, MainActivity2.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Add this flag to close previous activities
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     Toast.makeText(MainActivity2.this, "Rozpoczęto odświeżanie danych", Toast.LENGTH_SHORT).show();
-                                    finish(); // Finish the current activity
+                                    finish();
                                     Toast.makeText(MainActivity2.this, "Dane zostały odświeżone", Toast.LENGTH_SHORT).show();
 
                                 }
-                            }, 1500); // 3000 ms = 3 sekundy
+                            }, 1500);
 
                         }
                     }
@@ -234,7 +230,6 @@ public class MainActivity2 extends AppCompatActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                // Zakończ odświeżanie i ukryj pasek postępu
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(MainActivity2.this, MainActivity2.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Add this flag to close previous activities

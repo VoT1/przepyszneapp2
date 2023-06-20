@@ -49,7 +49,7 @@ public class PanelAdmin extends AppCompatActivity {
 
         Dialog myDialog;
 
-        // Inicjalizacja dialogu
+
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.dialog_layout);
         myDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -57,14 +57,15 @@ public class PanelAdmin extends AppCompatActivity {
 
         Dialog myDialog2;
 
-        // Inicjalizacja drugiego dialogu
+
         myDialog2 = new Dialog(this);
         myDialog2.setContentView(R.layout.dialog_layout2);
         myDialog2.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         myDialog2.setCancelable(true);
 
         Dialog myDialog3;
-        // Inicjalizacja drugiego dialogu
+
+
         myDialog3 = new Dialog(this);
         myDialog3.setContentView(R.layout.dialog_layout3);
         myDialog3.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -114,7 +115,7 @@ public class PanelAdmin extends AppCompatActivity {
                     String wiersziduser = cursor.getString(0);
                     String wiersznazwauser = cursor.getString(1);
 
-                    // Wyświetlenie okna dialogowego potwierdzającego usunięcie wiersza
+
                     new AlertDialog.Builder(PanelAdmin.this)
                             .setTitle("Usuwanie przepisu")
                             .setMessage("Czy na pewno chcesz usunąć uzytkownika: " + wiersznazwauser + "?")
@@ -123,8 +124,8 @@ public class PanelAdmin extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     db.delete("Uzytkownicy", "id=?", new String[]{wiersziduser});
                                     Toast.makeText(PanelAdmin.this, "Uzytkownik został usunięty.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
-                                    reloadPanelAdmin(); // Wczytanie panelu admina ponownie
+                                    dialog.dismiss();
+                                    reloadPanelAdmin();
                                 }
                                 private void reloadPanelAdmin() {
                                     Intent intent = new Intent(PanelAdmin.this, PanelAdmin.class);
@@ -136,7 +137,7 @@ public class PanelAdmin extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Toast.makeText(PanelAdmin.this, "Usunięcie przepisu zostało anulowane.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
+                                    dialog.dismiss();
                                 }
                             })
                             .show();
@@ -177,7 +178,7 @@ public class PanelAdmin extends AppCompatActivity {
                     String wierszidprodukt = cursor.getString(0);
                     String wiersznazwaprodukt = cursor.getString(1);
 
-                    // Wyświetlenie okna dialogowego potwierdzającego usunięcie wiersza
+
                     new AlertDialog.Builder(PanelAdmin.this)
                             .setTitle("Usuwanie przepisu")
                             .setMessage("Czy na pewno chcesz usunąć uzytkownika: " + wiersznazwaprodukt + "?")
@@ -186,8 +187,8 @@ public class PanelAdmin extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     db.delete("Produkty", "id=?", new String[]{wierszidprodukt});
                                     Toast.makeText(PanelAdmin.this, "Produkt został usunięty.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
-                                    reloadPanelAdmin(); // Wczytanie panelu admina ponownie
+                                    dialog.dismiss();
+                                    reloadPanelAdmin();
                                 }
                                 private void reloadPanelAdmin() {
                                     Intent intent = new Intent(PanelAdmin.this, PanelAdmin.class);
@@ -199,7 +200,7 @@ public class PanelAdmin extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Toast.makeText(PanelAdmin.this, "Usunięcie produktu zostało anulowane.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
+                                    dialog.dismiss();
                                 }
                             })
                             .show();
@@ -259,7 +260,6 @@ public class PanelAdmin extends AppCompatActivity {
                     String wierszid = cursor.getString(0);
                     String wiersznazwa = cursor.getString(1);
 
-                    // Wyświetlenie okna dialogowego potwierdzającego usunięcie wiersza
                     new AlertDialog.Builder(PanelAdmin.this)
                             .setTitle("Usuwanie przepisu")
                             .setMessage("Czy na pewno chcesz usunąć przepis: " + wiersznazwa + "?")
@@ -268,8 +268,8 @@ public class PanelAdmin extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     db.delete("Przepisy", "id=?", new String[]{wierszid});
                                     Toast.makeText(PanelAdmin.this, "Przepis został usunięty.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
-                                    reloadPanelAdmin(); // Wczytanie panelu admina ponownie
+                                    dialog.dismiss();
+                                    reloadPanelAdmin();
                                 }
                                 private void reloadPanelAdmin() {
                                     Intent intent = new Intent(PanelAdmin.this, PanelAdmin.class);
@@ -281,7 +281,7 @@ public class PanelAdmin extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Toast.makeText(PanelAdmin.this, "Usunięcie przepisu zostało anulowane.", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss(); // Zamknięcie dialogu
+                                    dialog.dismiss();
                                 }
                             })
                             .show();
@@ -318,14 +318,14 @@ public class PanelAdmin extends AppCompatActivity {
             }
         });
 
-// Ustawienie zaokrąglonych rogów
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             myDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.roundedrogidialog));
             myDialog2.getWindow().setBackgroundDrawable(getDrawable(R.drawable.roundedrogidialog));
             myDialog3.getWindow().setBackgroundDrawable(getDrawable(R.drawable.roundedrogidialog));
         }
 
-// Wywołanie dialogu po kliknięciu przycisku
+
         Button myButton = findViewById(R.id.buttonlistaprzepisow);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -387,7 +387,6 @@ public class PanelAdmin extends AppCompatActivity {
                     .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Zakończ wszystkie aktywności w aplikacji
                             finishAffinity();
                         }
                     })

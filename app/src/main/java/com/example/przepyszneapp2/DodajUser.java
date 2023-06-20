@@ -35,7 +35,6 @@ public class DodajUser extends AppCompatActivity {
         spinnerAdminDodajUser = findViewById(R.id.spinnerAdminDodajUser);
         buttonZapiszDodajUser = findViewById(R.id.buttonZapiszDodajUser);
 
-        // Defining the options programmatically
         String[] adminOptions = {"", "true", "false"};
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, adminOptions);
@@ -84,16 +83,12 @@ public class DodajUser extends AppCompatActivity {
 
     private String hashPassword(String password) {
         try {
-            // Utwórz instancję MessageDigest z algorytmem SHA-256
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 
-            // Przetwórz hasło jako tablicę bajtów
             byte[] passwordBytes = password.getBytes();
 
-            // Oblicz skrót hasła
             byte[] hashedBytes = messageDigest.digest(passwordBytes);
 
-            // Konwertuj tablicę bajtów na reprezentację tekstową
             StringBuilder stringBuilder = new StringBuilder();
             for (byte b : hashedBytes) {
                 stringBuilder.append(String.format("%02x", b));

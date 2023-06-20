@@ -67,7 +67,6 @@ public class EdycjaUser extends AppCompatActivity {
                 dbHelper = new DatabaseHelper(EdycjaUser.this);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                // Zahasłowanie nowego hasła
                 String hashedPassword = hashPassword(haslo);
 
                 db.execSQL("UPDATE Uzytkownicy SET nazwa = ?, haslo = ?, admin = ? WHERE id = ?", new String[]{nazwa, hashedPassword, admin, wierszid});
@@ -81,16 +80,12 @@ public class EdycjaUser extends AppCompatActivity {
 
     private String hashPassword(String password) {
         try {
-            // Utwórz instancję MessageDigest z algorytmem SHA-256
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 
-            // Przetwórz hasło jako tablicę bajtów
             byte[] passwordBytes = password.getBytes();
 
-            // Oblicz skrót hasła
             byte[] hashedBytes = messageDigest.digest(passwordBytes);
 
-            // Konwertuj tablicę bajtów na reprezentację tekstową
             StringBuilder stringBuilder = new StringBuilder();
             for (byte b : hashedBytes) {
                 stringBuilder.append(String.format("%02x", b));
